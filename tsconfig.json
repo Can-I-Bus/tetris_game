@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "lib": ["ESNext", "DOM"],
+        "outDir": "./dist",
+        "strictNullChecks": true,
+        "sourceMap": true,
+        "strict": true,
+        "removeComments": true,
+        "esModuleInterop": true,
+        "moduleResolution": "node"
+    },
+    "include": ["./src"]
+}

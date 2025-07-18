@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>俄罗斯方块</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            .root {
+                height: 100vh;
+                width: 100vw;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+            canvas {
+                width: 350px;
+                height: 650px;
+                border-radius: 15px;
+                background-color: #e3e5ec;
+                border: 1px solid #939bb3;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="root">
+            <canvas id="tetris" width="350" height="650"></canvas>
+        </div>
+        <script src="../src/index.ts"></script>
+    </body>
+</html>
