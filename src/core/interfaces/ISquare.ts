@@ -1,12 +1,9 @@
-import { Square } from '../square';
 import { Point } from '../types';
 
 export interface ISquare {
-    
-
-    draw(point: Point): void;
-
-    move(point: Point): void;
-
-    remove(point: Point): void;
+    /**
+     * 设置新的x和y坐标
+     * @param {Point} point 新x,y坐标
+     */
+    setPoint(point: Point): void;
 }

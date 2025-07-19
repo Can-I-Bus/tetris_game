@@ -30,3 +30,12 @@ export const getPosition = (element: HTMLElement) => {
     }
     return pos;
 };
+
+/**
+ * 获取数组中随机项
+ * @param {any[]} sourceArr 原数组
+ * @returns 数组中随机项
+ */
+export const getRandomItem = (sourceArr: any[]): any => {
+    return sourceArr[~~(Math.random() * sourceArr.length)];
+};
