@@ -6,16 +6,16 @@ import { getRandomItem } from '../utils';
 import { SQUARE_TYPES } from '../config/shape.config';
 import { RenderUtils } from '../utils/renderUtils';
 import { COLORS } from '../config/shape.config';
-import { getThemeColor } from '../utils';
 import GAME_CONFIG from '../config/game.config';
 const { squareSize } = GAME_CONFIG;
 
 export class Shape implements IShape {
-    private _squares: Square[] | [] = [];
+    private _squares: Square[] = [];
     private _centerPoint: Point = { x: 0, y: 0 };
     private _shapeType: ShapeType | null = null;
     private _shapeArr: [number, number][] | [] = [];
     private _ctx: CanvasRenderingContext2D | null = null;
+    private _color: string = '';
     private _renderUtils: RenderUtils | null = null;
 
     constructor(centerPoint: Point, ctx: CanvasRenderingContext2D) {
@@ -29,6 +29,7 @@ export class Shape implements IShape {
                 }
             });
         });
+        this._color = getRandomItem(COLORS);
         this.setCenterPoint(centerPoint);
     }
 
@@ -48,9 +49,11 @@ export class Shape implements IShape {
 
     private draw() {
         const realPointArr = this.vPointToRealPoint();
-        const color = getRandomItem(COLORS);
+
         realPointArr.forEach((i) => {
-            this._renderUtils?.drawRect({ x: i[0], y: i[1], w: squareSize, h: squareSize, fillColor: color, stokeColor: getThemeColor('drawLineColor') });
+            const square = new Square(this._ctx as CanvasRenderingContext2D, this._color);
+            square.setPoint({ x: i[0], y: i[1] });
+            this._squares.push(square);
         });
     }
 
