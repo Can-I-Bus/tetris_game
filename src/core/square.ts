@@ -21,6 +21,12 @@ export class Square implements ISquare {
         this.draw();
     }
 
+    remove(): void {
+        if (!this._ctx || Object.keys(this._point).length === 0) return;
+        const { x, y } = this._point as Point;
+        this._ctx.clearRect(x, y, squareSize, squareSize);
+    }
+
     private draw(): void {
         if (!this._ctx || Object.keys(this._point).length === 0) return;
         const { x, y } = this._point as Point;
@@ -32,11 +38,5 @@ export class Square implements ISquare {
         this._ctx.fillStyle = bgColor;
         this._ctx.fill();
         this._ctx.restore();
-    }
-
-    private remove(): void {
-        if (!this._ctx || Object.keys(this._point).length === 0) return;
-        const { x, y } = this._point as Point;
-        this._ctx.clearRect(x, y, squareSize, squareSize);
     }
 }

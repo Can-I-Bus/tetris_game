@@ -6,4 +6,9 @@ export interface ISquare {
      * @param {Point} point 新x,y坐标
      */
     setPoint(point: Point): void;
+
+    /**
+     * 移除小方块
+     */
+    remove(): void;
 }
