@@ -5,7 +5,7 @@ import { Point } from '../types';
 import { getPosition } from '../../utils';
 import GAME_CONFIG from '../../config/game.config';
 import BUTTON_CONFIG from '../../config/btns.config';
-const { gameHeight } = GAME_CONFIG;
+const { gameHeight, squareSize } = GAME_CONFIG;
 
 export class ActionManager implements IActionManager {
     private _canvas: HTMLCanvasElement | null = null;
@@ -20,23 +20,55 @@ export class ActionManager implements IActionManager {
         const { x, y } = e;
         if (!this._currShape) return;
         const btnType = this.getClickBtntype({ x, y });
-        console.log(btnType);
+        let shapeCenterPoint = this._currShape.getCenterPoint() as Point;
         switch (btnType) {
             // 如果是向上类型的话，需要变化图形
             case ButtonPosType.up:
                 this._currShape.rotate();
                 break;
             case ButtonPosType.right:
-                this._currShape.move(ButtonPosType.right);
+                shapeCenterPoint.x += squareSize;
+                this._currShape.setCenterPoint(shapeCenterPoint);
                 break;
             case ButtonPosType.down:
-                this._currShape.move(ButtonPosType.down);
+                shapeCenterPoint.y += squareSize;
+                this._currShape.setCenterPoint(shapeCenterPoint);
                 break;
             case ButtonPosType.left:
-                this._currShape.move(ButtonPosType.left);
+                shapeCenterPoint.x -= squareSize;
+                this._currShape.setCenterPoint(shapeCenterPoint);
                 break;
             case ButtonPosType.drop:
-                this._currShape.move(ButtonPosType.drop);
+                shapeCenterPoint.y += squareSize;
+                this._currShape.setCenterPoint(shapeCenterPoint);
+                break;
+        }
+    }
+
+    private handleKeyDown(e: KeyboardEvent) {
+        if (!this._currShape) return;
+        const { code } = e;
+        let shapeCenterPoint = this._currShape.getCenterPoint() as Point;
+        switch (code) {
+            // 如果是向上类型的话，需要变化图形
+            case 'ArrowUp':
+                this._currShape.rotate();
+                break;
+            case 'ArrowRight':
+                shapeCenterPoint.x += squareSize;
+                this._currShape.setCenterPoint(shapeCenterPoint);
+                break;
+            case 'ArrowDown':
+                shapeCenterPoint.y += squareSize;
+                this._currShape.setCenterPoint(shapeCenterPoint);
+                break;
+            case 'ArrowLeft':
+                shapeCenterPoint.x -= squareSize;
+                this._currShape.setCenterPoint(shapeCenterPoint);
+                break;
+            case 'Space':
+                shapeCenterPoint.y += squareSize;
+                this._currShape.setCenterPoint(shapeCenterPoint);
                 break;
         }
     }
@@ -77,9 +109,11 @@ export class ActionManager implements IActionManager {
 
     bindEvent(): void {
         this._canvas?.addEventListener('click', this.handleClick.bind(this));
+        window.addEventListener('keydown', this.handleKeyDown.bind(this));
     }
 
     destoryEvent(): void {
         this._canvas?.removeEventListener('click', this.handleClick.bind(this));
+        window.removeEventListener('keydown', this.handleKeyDown.bind(this));
     }
 }
