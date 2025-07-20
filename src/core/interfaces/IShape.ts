@@ -1,19 +1,19 @@
-import { ButtonPosType } from '../enums/btn.enum';
 import { Point } from '../types';
 
 export interface IShape {
     /**
-     * 移动
+     * 设置新的x和y坐标
+     * @param {Point} point 新x,y坐标
      */
-    move(type: ButtonPosType): void;
+    setCenterPoint(point: Point): void;
 
     /**
-     * 旋转
+     * 获取中心点的xy坐标
+     */
+    getCenterPoint(): Point | {};
+
+    /**
+     * 旋转方法
      */
     rotate(): void;
-
-    /**
-     * 移除
-     */
-    remove(): void;
 }

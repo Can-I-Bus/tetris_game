@@ -1,6 +1,8 @@
+import { ShapeType } from '../core/enums/shape.enum';
+
 export const SQUARE_TYPES = [
     {
-        I: [
+        [ShapeType.I]: [
             [-1, 0],
             [0, 0],
             [1, 0],
@@ -8,7 +10,7 @@ export const SQUARE_TYPES = [
         ],
     },
     {
-        L: [
+        [ShapeType.L]: [
             [0, 2],
             [0, 1],
             [0, 0],
@@ -16,31 +18,15 @@ export const SQUARE_TYPES = [
         ],
     },
     {
-        I: [
-            [-1, 0],
-            [0, 0],
-            [1, 0],
-            [2, 0],
-        ],
-    },
-    {
-        S: [
+        [ShapeType.S]: [
             [1, 0],
             [0, 0],
-            [1, 1],
+            [0, 1],
             [-1, 1],
         ],
     },
     {
-        Z: [
-            [-1, 0],
-            [0, 0],
-            [1, 1],
-            [1, 1],
-        ],
-    },
-    {
-        T: [
+        [ShapeType.T]: [
             [1, 0],
             [0, 0],
             [0, -1],
@@ -48,7 +34,7 @@ export const SQUARE_TYPES = [
         ],
     },
     {
-        O: [
+        [ShapeType.O]: [
             [0, 0],
             [0, 1],
             [1, 0],
