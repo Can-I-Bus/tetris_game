@@ -3,7 +3,7 @@ import BTNS_CONFIG from '../../config/btns.config';
 import { RenderUtils } from '../../utils/renderUtils';
 import { IGameRenderer } from '../interfaces/IGameRenderer';
 import { getThemeColor } from '../../utils';
-const { squareSize, gameColumnNum, gameRowNum, dpr, boardBorderWidth, labelFontSize, nextShapeSectionRowNum, nextShapeSectionColumnNum } = GAME_CONFIG;
+const { squareSize, gameColumnNum, gameRowNum, dpr, offset, boardBorderWidth, labelFontSize, nextShapeSectionRowNum, nextShapeSectionColumnNum } = GAME_CONFIG;
 
 type GameRenderType = {
     canvasEl: HTMLCanvasElement;
@@ -30,7 +30,6 @@ export class GameRenderer implements IGameRenderer {
      */
     private drawMainSection(): void {
         if (!this._renderUtils) return;
-        const offset = 20;
         const lineColor = getThemeColor('drawLineColor');
         const boardBorderColor = getThemeColor('boardBorderColor');
         const mainSectionBgc = getThemeColor('mainSectionBgc');

@@ -19,6 +19,8 @@ export default {
     labelFontSize: '20px',
     //下落速度
     speed: 200,
+    // 游戏棋盘的距离canvas的x，y距离
+    offset: 20,
     //dpr
     dpr: window.devicePixelRatio || 1,
 };
