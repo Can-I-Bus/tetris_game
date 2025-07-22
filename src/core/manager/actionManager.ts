@@ -5,7 +5,7 @@ import { Point } from '../types';
 import { getPosition } from '../../utils';
 import GAME_CONFIG from '../../config/game.config';
 import BUTTON_CONFIG from '../../config/btns.config';
-const { gameHeight, squareSize } = GAME_CONFIG;
+const { gameHeight, squareSize, gameRowNum } = GAME_CONFIG;
 
 export class ActionManager implements IActionManager {
     private _canvas: HTMLCanvasElement | null = null;
@@ -39,7 +39,7 @@ export class ActionManager implements IActionManager {
                 this._currShape.setCenterPoint(shapeCenterPoint);
                 break;
             case ButtonPosType.drop:
-                shapeCenterPoint.y += squareSize;
+                shapeCenterPoint.y += squareSize * (gameRowNum / 2);
                 this._currShape.setCenterPoint(shapeCenterPoint);
                 break;
         }
@@ -67,8 +67,7 @@ export class ActionManager implements IActionManager {
                 this._currShape.setCenterPoint(shapeCenterPoint);
                 break;
             case 'Space':
-                shapeCenterPoint.y += squareSize;
-                this._currShape.setCenterPoint(shapeCenterPoint);
+                this._currShape.hardDrop();
                 break;
         }
     }
