@@ -74,8 +74,8 @@ export class GameRenderer implements IGameRenderer {
         if (!this._ctx) return;
         const fillColor = getThemeColor('nextShapeSectionBgc');
         this._renderUtils?.drawRadiusRect({
-            x: 20 + squareSize * gameColumnNum + 8 + 20,
-            y: 20,
+            x: offset + squareSize * gameColumnNum + offset,
+            y: offset,
             w: squareSize * nextShapeSectionColumnNum,
             h: squareSize * nextShapeSectionRowNum,
             lineColor: 'transparent',
