@@ -4,4 +4,5 @@ export enum ButtonPosType {
     left = 'left',
     right = 'right',
     down = 'down',
+    pause = 'pause',
 }

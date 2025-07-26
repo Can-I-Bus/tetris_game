@@ -3,6 +3,12 @@ export type Point = {
     y: number;
 };
 
+export type GameType = {
+    canvasEl: HTMLCanvasElement;
+    onGameOver?: Function;
+    onGamePause?: Function;
+};
+
 export type ActionButton = {
     name: string;
     imageSrc: string;

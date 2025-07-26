@@ -1,6 +1,6 @@
 import GAME_CONFIG from './game.config';
 import { ButtonPosType } from '../core/enums/btn.enum';
-const { squareSize, gameRowNum, gameHeight } = GAME_CONFIG;
+const { squareSize, gameRowNum, gameHeight, offset, gameColumnNum, gameWidth } = GAME_CONFIG;
 
 // 按钮配置
 const buttonSize = 60;
@@ -30,6 +30,22 @@ export default [
         imageSize: dropButtonWidth * 0.5,
         imageOffsetX: dropButtonWidth * 0.25,
         imageOffsetY: dropButtonHeight * 0.25,
+    },
+    // 暂停/开始按钮 - 位于得分区域下方
+    {
+        name: ButtonPosType.pause,
+        imageBaseSrc: 'public/img/Pause.png', // 默认显示暂停图标
+        // 计算位置：主棋盘右侧居中
+        left: offset + squareSize * gameColumnNum + 30,
+        // 位于得分区域下方
+        top: offset + squareSize * 4.5 + 40 + 180 + 20,
+        right: offset + squareSize * gameColumnNum + 30 + buttonSize,
+        bottom: gameHeight - buttonSize - (offset + squareSize * 4.5 + 40 + 180 + 20),
+        width: buttonSize,
+        height: buttonSize,
+        imageSize: buttonSize * 0.6,
+        imageOffsetX: buttonSize * 0.2,
+        imageOffsetY: buttonSize * 0.2,
     },
     // 上按钮
     {

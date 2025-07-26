@@ -2,6 +2,7 @@ import { ISquare } from './interfaces/ISquare';
 import { Point } from './types';
 import { getThemeColor } from '../utils';
 import { RenderUtils } from '../utils/renderUtils';
+import { ShapeUtils } from '../utils/shapeUtils';
 import GAME_CONFIG from '../config/game.config';
 const { squareSize } = GAME_CONFIG;
 
@@ -18,28 +19,45 @@ export class Square implements ISquare {
     }
 
     setPoint(point: Point) {
-        if (Object.keys(this._point).length > 0) {
-            this.remove();
-        }
+        this.remove();
         this._point = point;
-        this.draw();
+        // 只有在棋盘可见区域内才绘制
+        if (ShapeUtils.isInBounds(point)) {
+            this.draw();
+        }
+    }
+
+    getPoint(): Point {
+        return { ...this._point };
     }
 
     remove(): void {
         if (!this._ctx || (this._point.x === 0 && this._point.y === 0)) return;
-        this._ctx.clearRect(this._point.x, this._point.y, squareSize, squareSize);
-        this._renderUtils?.drawRect({
-            x: this._point.x,
-            y: this._point.y,
-            w: squareSize,
-            h: squareSize,
-            stokeColor: getThemeColor('drawLineColor'),
-            fillColor: getThemeColor('mainSectionBgc'),
-        });
+        // 只清除在棋盘可见区域内或者预览区的方块
+        if (ShapeUtils.isInBounds(this._point)) {
+            let stokeColor;
+            let fillColor;
+            if (ShapeUtils.isInMainBoard(this._point)) {
+                stokeColor = getThemeColor('drawLineColor');
+                fillColor = getThemeColor('mainSectionBgc');
+            } else {
+                stokeColor = getThemeColor('nextShapeSectionBgc');
+                fillColor = getThemeColor('nextShapeSectionBgc');
+            }
+            this._ctx.clearRect(this._point.x, this._point.y, squareSize, squareSize);
+            this._renderUtils?.drawRect({
+                x: this._point.x,
+                y: this._point.y,
+                w: squareSize,
+                h: squareSize,
+                stokeColor,
+                fillColor,
+            });
+        }
     }
 
     private draw(): void {
-        if (!this._ctx || Object.keys(this._point).length === 0) return;
+        if (!this._ctx) return;
         this._renderUtils?.drawRect({
             x: this._point.x,
             y: this._point.y,

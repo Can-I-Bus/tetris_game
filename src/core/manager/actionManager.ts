@@ -10,16 +10,34 @@ const { gameHeight, squareSize, gameRowNum } = GAME_CONFIG;
 export class ActionManager implements IActionManager {
     private _canvas: HTMLCanvasElement | null = null;
     private _currShape: Shape | null = null;
+    private _onPauseToggle: (() => void) | null = null; // 暂停切换回调
 
     constructor(canvas: HTMLCanvasElement) {
         this._canvas = canvas;
         this.bindEvent();
     }
 
+    /**
+     * 设置暂停切换回调
+     */
+    setOnPauseToggle(callback: () => void): void {
+        this._onPauseToggle = callback;
+    }
+
     private handleClick(e: MouseEvent) {
         const { x, y } = e;
-        if (!this._currShape) return;
         const btnType = this.getClickBtntype({ x, y });
+
+        // 处理暂停按钮
+        if (btnType === ButtonPosType.pause) {
+            if (this._onPauseToggle) {
+                this._onPauseToggle();
+            }
+            return;
+        }
+
+        // 其他按钮需要当前形状存在
+        if (!this._currShape) return;
         let shapeCenterPoint = this._currShape.getCenterPoint() as Point;
         switch (btnType) {
             // 如果是向上类型的话，需要变化图形
@@ -39,8 +57,7 @@ export class ActionManager implements IActionManager {
                 this._currShape.setCenterPoint(shapeCenterPoint);
                 break;
             case ButtonPosType.drop:
-                shapeCenterPoint.y += squareSize * (gameRowNum / 2);
-                this._currShape.setCenterPoint(shapeCenterPoint);
+                this._currShape.hardDrop();
                 break;
         }
     }

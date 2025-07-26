@@ -1,5 +1,4 @@
 import { Shape } from '../shape';
-import { ActionButton } from '../types';
 
 export interface IActionManager {
     /**

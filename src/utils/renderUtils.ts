@@ -13,6 +13,8 @@ type DrawTextType = {
     content: string;
     color?: string;
     fz: string;
+    textAlign?: CanvasTextAlign;
+    textBaseline?: CanvasTextBaseline;
 };
 
 type DrawReduisRectType = {
@@ -42,26 +44,6 @@ type DrawImgType = {
     dy: number;
     dWidth: number;
     dHeight: number;
-};
-
-export const getPosition = (element: HTMLElement) => {
-    let pos = {
-        left: 0,
-        top: 0,
-    };
-
-    let currentElement: HTMLElement | null = element;
-
-    // 累加元素自身及所有祖先元素的偏移量直到文档根元素
-    while (currentElement) {
-        pos.left += currentElement.offsetLeft;
-        pos.top += currentElement.offsetTop;
-
-        // offsetParent 的类型是 Element | null，需要类型转换
-        currentElement = currentElement.offsetParent as HTMLElement | null;
-    }
-
-    return pos;
 };
 
 export class RenderUtils {
@@ -112,9 +94,11 @@ export class RenderUtils {
     drawText(drawTextObj: DrawTextType): void {
         if (!this._ctx) return;
         this._ctx.save();
-        const { x, y, content, color = '#333', fz } = drawTextObj;
+        const { x, y, content, color = '#333', fz, textAlign = 'left', textBaseline = 'top' } = drawTextObj;
         this._ctx.fillStyle = color;
         this._ctx.font = `${fz} Arial`;
+        this._ctx.textAlign = textAlign;
+        this._ctx.textBaseline = textBaseline;
         this._ctx.fillText(content, x, y);
         this._ctx.restore();
     }
